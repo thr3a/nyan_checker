@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>nyan</title>
+</head>
+<body>
+  <h1>nyan</h1>
+  {% if profile %}
+    <p>{{ profile.name}} @{{ profile.screen_name }}さん、ようこそ！</p>
+    <p>access_token: {{ session['access_token'] }}</p>
+    <p>access_secret: {{ session['access_secret'] }}</p>
+    <p><a href="{{ url_for('logout') }}">ログアウト</a></p>
+  {% else %}
+    <p><a href="{{ url_for('auth') }}">連携アプリ認証</a></p>
+  {% endif %}
+</body>
+</html>
