@@ -22,8 +22,6 @@ def index():
       print(dates)
       return render_template('index.html', profile=profile, dates=dates)
     return render_template('index.html', profile=profile)
-  else:
-    profile = False
   return render_template('index.html')
 
 
@@ -61,6 +59,7 @@ def callback():
     auth.get_access_token(verifier)
     session['access_token'] = auth.access_token
     session['access_secret'] = auth.access_token_secret
+    get_profile()
   except tweepy.TweepError as e:
     logging.error(str(e))
   return redirect(url_for('submit'))
@@ -103,6 +102,7 @@ def get_profile():
   api = tweepy.API(auth)
   profile = api.me()
   session['screen_name'] = profile.screen_name
+  session['name'] = profile.name
   return api.me()
 
 

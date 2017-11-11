@@ -7,13 +7,6 @@
   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 </head>
-<style>
-.btn-share-twitter {
-  background-color: #00aced;
-  color: #fff;
-  max-width: 250px;
-}
-</style>
 <body>
   <div class="mdl-grid">
     <div class="mdl-layout-spacer"></div>
@@ -36,9 +29,7 @@
             <a href='{{ "https://twitter.com/intent/tweet?text=最近は「にゃーん」と鳴いた日はありませんでした。 %23にゃーんチェッカー "+request.base_url }}' target="_blank" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">ツイートする（シェア画面が開きます）</a>
           {% endif %}
         {% else %}
-          <form action="{{ url_for('submit') }}" method='post'>
-            <input type='submit' value='実行' class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-          </form>
+          <a href="{{ url_for('submit') }}" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">実行</a>
         {% endif %}
         <hr/>
         <p>@{{ profile.screen_name }}({{ profile.name}}) でログインしています。<a href="{{ url_for('logout') }}">ログアウト</a></p>
