@@ -7,7 +7,6 @@ from dateutil.parser import parse
 
 CONSUMER_KEY = os.environ['CONSUMER_KEY']
 CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
-CALLBACK_URL = 'http://localhost:5000/callback'
 
 app = Flask(__name__)
 app.secret_key = 'nyannyan'
@@ -30,7 +29,7 @@ def index():
 
 @app.route('/auth')
 def auth():
-  auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET, CALLBACK_URL)
+  auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET, url_for('callback', _external=True))
 
   try:
     redirect_url = auth.get_authorization_url()
@@ -56,7 +55,7 @@ def callback():
   verifier = request.args.get('oauth_verifier')
   if token is None or verifier is None:
     return redirect(url_for('index'))
-  auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET, CALLBACK_URL)
+  auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET, url_for('callback', _external=True))
   auth.request_token = token
   try:
     auth.get_access_token(verifier)
